@@ -1,3 +1,4 @@
+const lod = require('lodash');
 
 const user = {
     name: "Jan",
@@ -44,3 +45,12 @@ function calculateGradeAverage(user) {
 const averageGrade = calculateGradeAverage(user);
 
 console.log("User: " + user.name + ", " + user.surname + " grade: " + averageGrade);
+
+const subjectWithWeightOne = lod.find(user.allGrades, { weight: 1 });
+
+if (subjectWithWeightOne) {
+    console.log("Subject with weight 1 found:");
+    console.log(subjectWithWeightOne);
+} else {
+    console.log("No subject with weight 1 found.");
+}
