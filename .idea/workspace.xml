@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e27b411c-7b82-49ee-9c07-1ab98c20e4d1" name="Changes" comment="zad2 lodash fixed again">
-      <change afterPath="$PROJECT_DIR$/zad3.js" afterDir="false" />
+    <list default="true" id="e27b411c-7b82-49ee-9c07-1ab98c20e4d1" name="Changes" comment="zad4">
+      <change afterPath="$PROJECT_DIR$/zad5.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,7 +23,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="zad3" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -52,7 +52,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "zad2",
+    "git-widget-placeholder": "zad4",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -69,7 +69,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1697184181371</updated>
-      <workItem from="1697184182371" duration="2560000" />
+      <workItem from="1697184182371" duration="3619000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -111,7 +111,23 @@
       <option name="project" value="LOCAL" />
       <updated>1697185982649</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="zad3 + gitignore fix">
+      <option name="closed" value="true" />
+      <created>1697186824884</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1697186824884</updated>
+    </task>
+    <task id="LOCAL-00007" summary="zad4">
+      <option name="closed" value="true" />
+      <created>1697187030928</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1697187030928</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,6 +150,8 @@
     <MESSAGE value="added lodash fix" />
     <MESSAGE value="zad2" />
     <MESSAGE value="zad2 lodash fixed again" />
-    <option name="LAST_COMMIT_MESSAGE" value="zad2 lodash fixed again" />
+    <MESSAGE value="zad3 + gitignore fix" />
+    <MESSAGE value="zad4" />
+    <option name="LAST_COMMIT_MESSAGE" value="zad4" />
   </component>
 </project>
