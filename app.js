@@ -2,6 +2,10 @@ const lod = require('lodash');
 
 let tab1 = [1, 2, 3, 4, 5];
 
+const average = lod.mean(tab1);
+
+console.log("średnia: " + average);
+
 let max = tab1[0];
 let min = tab1[0];
 
@@ -14,5 +18,5 @@ for (let i = 1; i < tab1.length; i++) {
     }
 }
 
-console.log("The largest element is: " + max);
-console.log("The smallest element is: " + min);
+console.log("Najmniejszy: " + max);
+console.log("Najwiekszy: " + min);
