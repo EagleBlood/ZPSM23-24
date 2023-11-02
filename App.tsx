@@ -1,4 +1,4 @@
-import React, {useState, Component} from 'react';
+import React, {useState, useEffect, Component} from 'react';
 import {
     SafeAreaView,
     StyleSheet,
@@ -8,6 +8,7 @@ import {
     useWindowDimensions
 } from 'react-native';
 import Orientation from 'react-native-orientation';
+import SplashScreen from './SplashScreen';
 
 class YourComponent extends Component {
     componentDidMount() {
@@ -37,6 +38,14 @@ function App(this: any): JSX.Element {
     const windowDimensions = useWindowDimensions();
     const [input, setInput] = useState('');
     const [result, setResult] = useState('');
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        // Simulate loading or initialization process
+        setTimeout(() => {
+          setLoading(false); // Set loading to false when loading is complete
+        }, 3000); // Adjust the delay as needed
+      }, []);
 
     const handleButtonPress = (value: string) => {
         if (value === '') {
@@ -83,6 +92,12 @@ function App(this: any): JSX.Element {
 
     return (
         <SafeAreaView style={[styles.container, landscapeStyles.container]}>
+
+        {loading ? (
+            //<SplashScreen /> // Render the splash screen while loading
+            <View></View>
+        ) : (
+            // Render your main content when loading is complete
             <View style={styles.display}>
                 <Text style={[styles.inputText, landscapeStyles.inputText]}>
                     {
@@ -93,7 +108,11 @@ function App(this: any): JSX.Element {
                 </Text>
                 <Text style={[styles.resultText, landscapeStyles.resultText]}>{result}</Text>
             </View>
+            )}
 
+            {loading ? (
+                <SplashScreen /> // Render the splash screen while loading
+            ) : (
             <View style={styles.container4Buttons}>
                 <View style={[styles.buttons, landscapeStyles.row]}>
                     <View style={styles.row}>
@@ -377,6 +396,7 @@ function App(this: any): JSX.Element {
                 </View>
                 )}
             </View>
+            )}
         </SafeAreaView>
     );
 }
