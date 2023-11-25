@@ -11,7 +11,7 @@ const SplashScreen = () => {
   return (
     //Splash Screen View
     <View style={styles.container}>
-      <Image source={require('./Calculator-icon.png')} style={styles.img}/>
+      <Image source={require('../img/Calculator-icon.png')} style={styles.img}/>
     </View>
   );
 };
