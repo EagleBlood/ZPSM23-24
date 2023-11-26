@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Component} from 'react';
+import React, {useState, useEffect, Component, useRef} from 'react';
 import {
     SafeAreaView,
     StyleSheet,
@@ -28,6 +28,7 @@ function Home(this: any): JSX.Element {
     const [menuVisible, setMenuVisible] = useState(false);
     const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'Home'>>();
     const menuItems = ['Home', 'Results'];
+    const scrollViewRef = useRef<ScrollView>(null);
 
     useEffect(() => {
         // Simulate loading or initialization process
@@ -93,39 +94,92 @@ function Home(this: any): JSX.Element {
                 
 
                 <View style={styles.listQuiz}>
-                    <ScrollView>
-
-                    <TouchableOpacity onPress={() => navigation.navigate('Quiz')}>
+                    <ScrollView ref={scrollViewRef}>         
                         <View style={styles.quizBox}>
-                            <Text style={styles.header}>Quiz #1</Text>
-                            <Text style={styles.difficulty}>Level: Easy</Text>
+                            <View style={styles.title}>
+                                <View style={styles.titleText}>
+                                    <Text style={styles.header}>Quiz #1</Text>
+                                    <Text style={styles.difficulty}>Level: Easy</Text>
+                                </View>
+                                <TouchableOpacity>
+                                    <Text style={styles.enterButton} onPress={() => navigation.navigate('Quiz')}>BEGIN</Text>
+                                </TouchableOpacity>
+                            </View>
+                            
                             <Text style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, eget aliquam nisl nunc eget nisl.</Text>
                         </View>
-                    </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => navigation.navigate('Quiz')}>
                         <View style={styles.quizBox}>
-                            <Text style={styles.header}>Quiz #2</Text>
-                            <Text style={styles.difficulty}>Level: Medium</Text>
+                            <View style={styles.title}>
+                                <View style={styles.titleText}>
+                                    <Text style={styles.header}>Quiz #1</Text>
+                                    <Text style={styles.difficulty}>Level: Easy</Text>
+                                </View>
+                                <TouchableOpacity>
+                                    <Text style={styles.enterButton} onPress={() => navigation.navigate('Quiz')}>BEGIN</Text>
+                                </TouchableOpacity>
+                            </View>
+                            
                             <Text style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, eget aliquam nisl nunc eget nisl.</Text>
                         </View>
-                    </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => navigation.navigate('Quiz')}>
                         <View style={styles.quizBox}>
-                            <Text style={styles.header}>Quiz #3</Text>
-                            <Text style={styles.difficulty}>Level: Hard</Text>
+                            <View style={styles.title}>
+                                <View style={styles.titleText}>
+                                    <Text style={styles.header}>Quiz #2</Text>
+                                    <Text style={styles.difficulty}>Level: Medium</Text>
+                                </View>
+                                <TouchableOpacity>
+                                    <Text style={styles.enterButton} onPress={() => navigation.navigate('Quiz')}>BEGIN</Text>
+                                </TouchableOpacity>
+                            </View>
+                            
                             <Text style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, eget aliquam nisl nunc eget nisl.</Text>
                         </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() => navigation.navigate('Quiz')}>
+                        
                         <View style={styles.quizBox}>
-                            <Text style={styles.header}>Quiz #4</Text>
-                            <Text style={styles.difficulty}>Level: Easy</Text>
+                            <View style={styles.title}>
+                                <View style={styles.titleText}>
+                                    <Text style={styles.header}>Quiz #3</Text>
+                                    <Text style={styles.difficulty}>Level: Hard</Text>
+                                </View>
+                                <TouchableOpacity>
+                                    <Text style={styles.enterButton} onPress={() => navigation.navigate('Quiz')}>BEGIN</Text>
+                                </TouchableOpacity>
+                            </View>
+                            
                             <Text style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, eget aliquam nisl nunc eget nisl.</Text>
                         </View>
-                    </TouchableOpacity>
+
+                        <View style={styles.quizBox}>
+                            <View style={styles.title}>
+                                <View style={styles.titleText}>
+                                    <Text style={styles.header}>Quiz #4</Text>
+                                    <Text style={styles.difficulty}>Level: Easy</Text>
+                                </View>
+                                <TouchableOpacity>
+                                    <Text style={styles.enterButton} onPress={() => navigation.navigate('Quiz')}>BEGIN</Text>
+                                </TouchableOpacity>
+                            </View>
+                            
+                            <Text style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, eget aliquam nisl nunc eget nisl.</Text>
+                        </View>
+
+                    {/*Footer*/}
+
+                        <View style={styles.quizBox}>
+                            <Text style={styles.footer}>Couldn't find any quiz to partake?</Text>
+                            <Text style={styles.footer}>Check your current results!</Text>
+                            <View style={styles.footerButtons}>
+                                <TouchableOpacity onPress={() => scrollViewRef.current?.scrollTo({ y: 0, animated: false })}>
+                                    <Text style={styles.footerButton}>RETURN</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => navigation.navigate('Results')}>
+                                    <Text style={styles.footerButton}>RESULTS</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    
 
                     </ScrollView>
                 </View>
@@ -175,8 +229,8 @@ const styles = StyleSheet.create({
     listQuiz: {
         flex: 1,
         zIndex: -1,
-        
-        padding: 10,
+        paddingRight: 15,
+        paddingLeft: 15,
     },
 
 
@@ -194,12 +248,61 @@ const styles = StyleSheet.create({
         padding: 10,
     },
 
+    title: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+
+    titleText: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+    },
+
+    footer: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: 'black',
+        alignSelf: 'center',
+        textAlign: 'center',
+    },
+
+    footerButtons: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        padding: 10,
+        marginTop: 15,
+        marginLeft: 80,
+        marginRight: 80,
+    },
+
+    footerButton: {
+        fontSize: 12,
+        fontWeight: 'bold',
+        color: 'green',
+        backgroundColor: '#54BF72',
+        padding: 10,
+        borderRadius: 15,
+    },
+
+    enterButton: {
+        fontSize: 12,
+        fontWeight: 'bold',
+        color: 'green',
+        backgroundColor: '#54BF72',
+        padding: 15,
+        borderRadius: 15,
+    },
+
     menuBar: {
         flex: 0.1,
         backgroundColor: '#54BF72',
         borderBottomRightRadius: 30,
         borderBottomLeftRadius: 30,
-
     },
 
     menuImg: {
