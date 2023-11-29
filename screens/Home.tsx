@@ -6,13 +6,15 @@ import {
     View,
     TouchableOpacity,
     useWindowDimensions,
-    Image
+    Image,
+    TouchableWithoutFeedback
 } from 'react-native';
-import SplashScreen from './SplashScreen';
+import SplashScreen from '../screens/SplashScreen';
 import { ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { SvgXml } from 'react-native-svg';
+import { styles } from '../styles/styles';
 
 
 
@@ -37,12 +39,6 @@ function Home(this: any): JSX.Element {
         }, 3000); // Adjust the delay as needed
       }, []);
 
-    
-
-      
-
-    
-
 
     const isLandscape = windowDimensions.width > windowDimensions.height;
 
@@ -59,8 +55,10 @@ function Home(this: any): JSX.Element {
             <SplashScreen /> // Render the splash screen while loading
         ) : (
             // Render your main content when loading is complete
+            
             <View style={styles.body}>
 
+                <TouchableWithoutFeedback onPress={() => setMenuVisible(false)}>
                 <View style={styles.menuBar}>
                     <View style={styles.menuSelect}>
 
@@ -69,10 +67,11 @@ function Home(this: any): JSX.Element {
                         </TouchableOpacity>
 
 
-                        <TouchableOpacity onPress={() => setMenuVisible(!menuVisible)}>
-                            <View style={styles.menuImg}>
-                                 <Text style={styles.menuText}>Menu</Text>
-                            </View>
+                        <TouchableWithoutFeedback onPress={() => setMenuVisible(false)}>
+                        <View style={styles.menuImg}>
+                            <TouchableOpacity onPress={() => setMenuVisible(!menuVisible)}>
+                                <Text style={styles.menuText}>Menu</Text>
+                            </TouchableOpacity>
                             {menuVisible && (
                                 <View style={styles.menu}>
                                     {menuItems.map((item, index) => (
@@ -82,7 +81,8 @@ function Home(this: any): JSX.Element {
                                     ))}
                                 </View>
                             )}
-                        </TouchableOpacity>
+                        </View>
+                    </TouchableWithoutFeedback>
                         
 
                         <TouchableOpacity>
@@ -90,6 +90,7 @@ function Home(this: any): JSX.Element {
                         </TouchableOpacity>
                     </View>
                 </View>
+                </TouchableWithoutFeedback>
 
                 
 
@@ -189,166 +190,5 @@ function Home(this: any): JSX.Element {
         </SafeAreaView>
     );
 }
-
-const styles = StyleSheet.create({
-    head: {
-        flex: 1,
-        backgroundColor: 'white'
-    },
-
-    body: {
-        flex: 1,
-        backgroundColor: '#F3CA4D30',
-    },
-
-    header: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: 'black',
-    },
-
-    difficulty: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: 'green',
-        fontStyle: 'italic',
-    },
-    
-    text: {
-        fontSize: 16,
-        marginTop: 10,
-        
-    },
-
-    menuText: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: 'white',
-    },
-
-    listQuiz: {
-        flex: 1,
-        zIndex: -1,
-        paddingRight: 15,
-        paddingLeft: 15,
-    },
-
-
-
-    quizBox: {
-        flex: 1,
-        backgroundColor: 'white',
-        margin: 10,
-        borderRadius: 15,
-        shadowColor: 'black',
-        shadowOpacity: 0.5,
-        shadowOffset: {width: 0, height: 2},
-        shadowRadius: 10,
-        elevation: 5,
-        padding: 10,
-    },
-
-    title: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-
-    titleText: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        alignItems: 'flex-start',
-    },
-
-    footer: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: 'black',
-        alignSelf: 'center',
-        textAlign: 'center',
-    },
-
-    footerButtons: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        padding: 10,
-        marginTop: 15,
-        marginLeft: 80,
-        marginRight: 80,
-    },
-
-    footerButton: {
-        fontSize: 12,
-        fontWeight: 'bold',
-        color: 'green',
-        backgroundColor: '#54BF72',
-        padding: 10,
-        borderRadius: 15,
-    },
-
-    enterButton: {
-        fontSize: 12,
-        fontWeight: 'bold',
-        color: 'green',
-        backgroundColor: '#54BF72',
-        padding: 15,
-        borderRadius: 15,
-    },
-
-    menuBar: {
-        flex: 0.1,
-        backgroundColor: '#54BF72',
-        borderBottomRightRadius: 30,
-        borderBottomLeftRadius: 30,
-    },
-
-    menuImg: {
-
-    },
-
-    menuSelect: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-    },
-
-    menu: {
-        backgroundColor: '#EDEDED',
-        borderRadius: 15,
-        padding: 10,
-        elevation: 3,
-        zIndex: 1,
-        position: 'absolute',
-        alignSelf: 'center',
-        top: 30,
-        width: 'auto',
-        height: 'auto',
-        minWidth: 100,
-        alignItems: 'center',
-    },
-
-      menuItem: {
-        padding: 15,
-        fontWeight: 'bold',
-        color: 'black',
-        
-      },
-
-
-    // Landscape
-    landscapeHead: {
-        flex: 1
-    },
-    landscapeBody: {
-        flex: 1
-    },
-
-    
-
-});
 
 export default Home;
