@@ -93,9 +93,43 @@ export const stylesQuiz = StyleSheet.create({
     quizTestHeaderText: {
         fontSize: 20,
         fontWeight: 'bold',
-
         borderRadius: 50,
         color: 'black',
+        paddingLeft: 20,
+        paddingRight: 20,
+        margin: 10,
+        
+    },
+
+    quizTestHeaderResignButton: {
+        borderRadius: 15,
+        backgroundColor: '#BF5454',
+        margin: 10,
+    },
+
+    quizTestHeaderResignText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        borderRadius: 50,
+        color: 'black',
+        paddingLeft: 20,
+        paddingRight: 20,
+        margin: 10,
+        
+    },
+
+    quizTestHeaderScoreCount: {
+        borderRadius: 15,
+        backgroundColor: '#54BF72',
+        margin: 10,
+    },
+
+    quizTestHeaderScoreText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+
+        borderRadius: 50,
+        color: 'white',
         paddingLeft: 20,
         paddingRight: 20,
         margin: 10,

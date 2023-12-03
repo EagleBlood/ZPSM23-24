@@ -9,35 +9,45 @@ import {
     Image,
     TouchableWithoutFeedback
 } from 'react-native';
-import SplashScreen from '../screens/SplashScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { SvgXml } from 'react-native-svg';
 import { styles } from '../styles/styles';
+import QuizData from '../data/quizData';
+import ScoreContext from '../data/ScoreContext';
 
 
 
 function Home(this: any): JSX.Element {
     type RootStackParamList = {
+        Welcome: undefined;
         Home: undefined;
         Results: undefined;
-        Quiz: undefined;
+        Quiz: { quizIndex: number };
+        Search: undefined;
       };
-
+    const route = useRoute<RouteProp<RootStackParamList, 'Quiz'>>();
+    const quizIndex = route.params?.quizIndex ?? 0;
     const windowDimensions = useWindowDimensions();
     const [loading, setLoading] = useState(true);
     const [menuVisible, setMenuVisible] = useState(false);
     const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'Home'>>();
-    const menuItems = ['Home', 'Results'];
+    const menuItems: { [K in keyof RootStackParamList]?: RootStackParamList[K] } = {
+        Search: undefined,
+        Results: undefined,
+      };
     const scrollViewRef = useRef<ScrollView>(null);
+    const { scores } = React.useContext(ScoreContext);
 
-    useEffect(() => {
-        // Simulate loading or initialization process
-        setTimeout(() => {
-          setLoading(false); // Set loading to false when loading is complete
-        }, 3000); // Adjust the delay as needed
-      }, []);
+      const handleReset = async () => {
+        try {
+          await AsyncStorage.setItem('hasSeenWelcome', 'false');
+          navigation.navigate('Welcome');
+        } catch (error) {
+          console.log(error);
+        }
+      };
 
 
     const isLandscape = windowDimensions.width > windowDimensions.height;
@@ -51,10 +61,6 @@ function Home(this: any): JSX.Element {
 
     return (
         <SafeAreaView style={[styles.head, landscapeStyles.head]}>
-        {loading ? (
-            <SplashScreen /> // Render the splash screen while loading
-        ) : (
-            // Render your main content when loading is complete
             
             <View style={styles.body}>
 
@@ -68,21 +74,21 @@ function Home(this: any): JSX.Element {
 
 
                         <TouchableWithoutFeedback onPress={() => setMenuVisible(false)}>
-                        <View style={styles.menuImg}>
-                            <TouchableOpacity onPress={() => setMenuVisible(!menuVisible)}>
-                                <Text style={styles.menuText}>Menu</Text>
-                            </TouchableOpacity>
-                            {menuVisible && (
-                                <View style={styles.menu}>
-                                    {menuItems.map((item, index) => (
-                                        <TouchableOpacity key={index} onPress={() => navigation.navigate(item as keyof RootStackParamList)}>
-                                            <Text style={styles.menuItem}>{item}</Text>
-                                        </TouchableOpacity>
-                                    ))}
-                                </View>
-                            )}
-                        </View>
-                    </TouchableWithoutFeedback>
+                            <View style={styles.menuImg}>
+                                <TouchableOpacity onPress={() => setMenuVisible(!menuVisible)}>
+                                    <Text style={styles.menuText}>Menu</Text>
+                                </TouchableOpacity>
+                                {menuVisible && (
+                                    <View style={styles.menu}>
+                                        {Object.entries(menuItems).map(([item, params], index) => (
+                                            <TouchableOpacity key={index} onPress={() => navigation.navigate(item as keyof RootStackParamList, params)}>
+                                                <Text style={styles.menuItem}>{item}</Text>
+                                            </TouchableOpacity>
+                                        ))}
+                                    </View>
+                                )}
+                            </View>
+                        </TouchableWithoutFeedback>
                         
 
                         <TouchableOpacity>
@@ -92,82 +98,36 @@ function Home(this: any): JSX.Element {
                 </View>
                 </TouchableWithoutFeedback>
 
-                
 
                 <View style={styles.listQuiz}>
-                    <ScrollView ref={scrollViewRef}>         
-                        <View style={styles.quizBox}>
-                            <View style={styles.title}>
-                                <View style={styles.titleText}>
-                                    <Text style={styles.header}>Quiz #1</Text>
-                                    <Text style={styles.difficulty}>Level: Easy</Text>
-                                </View>
-                                <TouchableOpacity>
-                                    <Text style={styles.enterButton} onPress={() => navigation.navigate('Quiz')}>BEGIN</Text>
-                                </TouchableOpacity>
-                            </View>
-                            
-                            <Text style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, eget aliquam nisl nunc eget nisl.</Text>
+                    <ScrollView ref={scrollViewRef}>  
+                        <View style={styles.quizBoxHeader}>
+                            <Text style={styles.quizBoxHeaderText}>Trending Quizzes</Text>
                         </View>
 
-                        <View style={styles.quizBox}>
-                            <View style={styles.title}>
-                                <View style={styles.titleText}>
-                                    <Text style={styles.header}>Quiz #1</Text>
-                                    <Text style={styles.difficulty}>Level: Easy</Text>
-                                </View>
-                                <TouchableOpacity>
-                                    <Text style={styles.enterButton} onPress={() => navigation.navigate('Quiz')}>BEGIN</Text>
-                                </TouchableOpacity>
-                            </View>
-                            
-                            <Text style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, eget aliquam nisl nunc eget nisl.</Text>
-                        </View>
+                        {QuizData.map((quiz, index) => (
+                            <View style={styles.quizBox} key={index}>
+                                <View style={styles.title}>
+                                    <View style={styles.titleText}>
+                                        <Text style={styles.header}>{quiz.title}</Text>
+                                        <Text style={styles.difficulty}>Type: {quiz.type}</Text>
+                                    </View>
 
-                        <View style={styles.quizBox}>
-                            <View style={styles.title}>
-                                <View style={styles.titleText}>
-                                    <Text style={styles.header}>Quiz #2</Text>
-                                    <Text style={styles.difficulty}>Level: Medium</Text>
-                                </View>
-                                <TouchableOpacity>
-                                    <Text style={styles.enterButton} onPress={() => navigation.navigate('Quiz')}>BEGIN</Text>
-                                </TouchableOpacity>
-                            </View>
-                            
-                            <Text style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, eget aliquam nisl nunc eget nisl.</Text>
-                        </View>
-                        
-                        <View style={styles.quizBox}>
-                            <View style={styles.title}>
-                                <View style={styles.titleText}>
-                                    <Text style={styles.header}>Quiz #3</Text>
-                                    <Text style={styles.difficulty}>Level: Hard</Text>
-                                </View>
-                                <TouchableOpacity>
-                                    <Text style={styles.enterButton} onPress={() => navigation.navigate('Quiz')}>BEGIN</Text>
-                                </TouchableOpacity>
-                            </View>
-                            
-                            <Text style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, eget aliquam nisl nunc eget nisl.</Text>
-                        </View>
+                                    <View style={styles.rightQuizButtons}>
+                                        <Text style={[scores[index] === quiz.tasks.length ? styles.quizScoreMax : styles.quizScore, {marginRight: 10}]}>
+                                            {scores[index] || 0}/{quiz.tasks.length}
+                                        </Text>
 
-                        <View style={styles.quizBox}>
-                            <View style={styles.title}>
-                                <View style={styles.titleText}>
-                                    <Text style={styles.header}>Quiz #4</Text>
-                                    <Text style={styles.difficulty}>Level: Easy</Text>
+                                        <TouchableOpacity>
+                                            <Text style={styles.enterButton} onPress={() => navigation.navigate('Quiz', { quizIndex: index })}>BEGIN</Text>
+                                        </TouchableOpacity>     
+                                    </View>
                                 </View>
-                                <TouchableOpacity>
-                                    <Text style={styles.enterButton} onPress={() => navigation.navigate('Quiz')}>BEGIN</Text>
-                                </TouchableOpacity>
+                                <Text style={styles.text}>{quiz.description}</Text>
                             </View>
-                            
-                            <Text style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl aliquet nunc, eget aliquam nisl nunc eget nisl.</Text>
-                        </View>
+                        ))}
 
-                    {/*Footer*/}
-
+                        {/*Footer*/}
                         <View style={styles.quizBox}>
                             <Text style={styles.footer}>Couldn't find any quiz to partake?</Text>
                             <Text style={styles.footer}>Check your current results!</Text>
@@ -178,15 +138,14 @@ function Home(this: any): JSX.Element {
                                 <TouchableOpacity onPress={() => navigation.navigate('Results')}>
                                     <Text style={styles.footerButton}>RESULTS</Text>
                                 </TouchableOpacity>
+                                <TouchableOpacity onPress={handleReset}>
+                                    <Text style={styles.footerButton}>RESET WELCOME SCREEN</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
-                    
-
                     </ScrollView>
                 </View>
-
             </View>
-            )}
         </SafeAreaView>
     );
 }

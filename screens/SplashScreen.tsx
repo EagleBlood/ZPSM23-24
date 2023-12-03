@@ -11,7 +11,7 @@ const SplashScreen = () => {
   return (
     //Splash Screen View
     <View style={styles.container}>
-      <Image source={require('../img/Calculator-icon.png')} style={styles.img}/>
+      <Image source={require('../img/logo4.png')} style={styles.img}/>
     </View>
   );
 };
@@ -22,12 +22,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
+    padding: 50,
   },
 
   img: {
-    width: 200,
-    height: 200,
+    width: 288,
+    height: 230 ,
   }
 });
-
 export default SplashScreen;

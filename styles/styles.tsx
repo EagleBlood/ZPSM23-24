@@ -43,12 +43,61 @@ export const styles = StyleSheet.create({
         paddingLeft: 15,
     },
 
+    quizBoxHeader: {
+        flex: 1,
+        backgroundColor: 'white',
+        marginLeft: 10,
+        marginRight: 10,
+        marginTop: 20,
+        marginBottom: 20,
+        borderRadius: 15,
+        shadowColor: 'black',
+        shadowOpacity: 0.5,
+        shadowOffset: {width: 0, height: 2},
+        shadowRadius: 10,
+        elevation: 5,
+        padding: 10,
+    },
 
+    quizBoxHeaderText: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: 'black',
+        alignSelf: 'center',
+        textAlign: 'center',
+    },
+
+    rightQuizButtons: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+
+    quizScoreMax: {
+        fontSize: 12,
+        fontWeight: 'bold',
+        color: 'white',
+        backgroundColor: '#54BF72',
+        padding: 15,
+        borderRadius: 15,
+    },
+
+    quizScore: {
+        fontSize: 12,
+        fontWeight: 'bold',
+        color: 'black',
+        backgroundColor: '#EDEDED',
+        padding: 15,
+        borderRadius: 15,
+    },
 
     quizBox: {
         flex: 1,
         backgroundColor: 'white',
-        margin: 10,
+        marginLeft: 10,
+        marginRight: 10,
+        marginTop: 0,
+        marginBottom: 20,
         borderRadius: 15,
         shadowColor: 'black',
         shadowOpacity: 0.5,
@@ -85,8 +134,8 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
         marginTop: 20,
-        marginLeft: 80,
-        marginRight: 80,
+        //marginLeft: 80,
+        //marginRight: 80,
     },
 
     footerButton: {
@@ -138,6 +187,7 @@ export const styles = StyleSheet.create({
         height: 'auto',
         minWidth: 100,
         alignItems: 'center',
+       
     },
 
       menuItem: {
