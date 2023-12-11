@@ -19,17 +19,18 @@ export const stylesWelcomeScreen = StyleSheet.create({
 
     welcomeBoxHeaderText: {
         fontSize: 20,
-        fontWeight: 'bold',
         alignSelf: 'center',
         textAlign: 'center',
         margin: 10,
         color: 'black',
+        fontFamily: "Chivo-Bold",
     },
 
     welcomeBoxText: {
         fontSize: 16,
         margin: 10,
         color: 'black',
+        fontFamily: "Chivo-Regular",
     },
 
     welcomeCheckBoxView: {
@@ -67,14 +68,14 @@ export const stylesWelcomeScreen = StyleSheet.create({
 
     welcomeBoxButtonOffText: {
         fontSize: 20,
-        fontWeight: 'bold',
         color: 'black',
+        fontFamily: "Chivo-Bold",
     },
 
     welcomeBoxButtonOnText: {
         fontSize: 20,
-        fontWeight: 'bold',
         color: 'white',
+        fontFamily: "Chivo-Bold",
     },
    
     

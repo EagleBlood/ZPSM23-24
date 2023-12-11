@@ -14,6 +14,28 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-lab3-lab3Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-lab3-lab3Tests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		4E5845A1CDBA4D9C9296425F /* Chivo-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C7A704E921F4639B1C9150B /* Chivo-Italic-VariableFont_wght.ttf */; };
+		1BD45D748DBD4C889D5C6E0E /* Chivo-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4431E2E8BCFF40229447C0F9 /* Chivo-VariableFont_wght.ttf */; };
+		254FF932198D45AF99B8351F /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 97682ADA933F49D1A11FF29E /* OFL.txt */; };
+		32CFD2F176204FFA8F6234CA /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = A78FE443E285437F8D08937B /* README.txt */; };
+		A51E18961D10452187187720 /* Chivo-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEBD7391CC1E426CB62A403C /* Chivo-Black.ttf */; };
+		67C3C4C23DE54BD79F22D155 /* Chivo-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E6A59C1A0AF4C808215A17F /* Chivo-BlackItalic.ttf */; };
+		00FCFA60CD364C1C9314B0B3 /* Chivo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74B2DA485D8545B89E570A0C /* Chivo-Bold.ttf */; };
+		CA2F1282016B43B0AE55B08F /* Chivo-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEC04967BEF04F9285230F14 /* Chivo-BoldItalic.ttf */; };
+		23B4B674E3DB4CEB96BCB85F /* Chivo-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B8EE558CF0E4EC2872D3541 /* Chivo-ExtraBold.ttf */; };
+		4A1F12ABA628493C9789F18A /* Chivo-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77C2151788774478BC2BA5E1 /* Chivo-ExtraBoldItalic.ttf */; };
+		D7DB53435CEF418DA5FBC872 /* Chivo-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9CEA12A57884348826DA9BD /* Chivo-ExtraLight.ttf */; };
+		B2C53B64EA50478A89FB0251 /* Chivo-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C7EB3685F544A358B31B2C3 /* Chivo-ExtraLightItalic.ttf */; };
+		5D7F3912669647BDB98E3FDE /* Chivo-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 67B89EC1F7B7440396789E3C /* Chivo-Italic.ttf */; };
+		43C1F6DA9CC14591AC341E99 /* Chivo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B0E4D7FF0AFA47EFBA4BCD96 /* Chivo-Light.ttf */; };
+		6E171FF65D0E43EA9CDAFDDE /* Chivo-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84DEF3E512794015A2669A60 /* Chivo-LightItalic.ttf */; };
+		5BCDDA0524B1482E9F376AA3 /* Chivo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 543047AD897C4E51A906854A /* Chivo-Medium.ttf */; };
+		75127D8E985846E2868CE91D /* Chivo-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A2B151BE313045AFB88EF6BF /* Chivo-MediumItalic.ttf */; };
+		41AE92BF697A423C870F35CD /* Chivo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 175469B612C74171B6715418 /* Chivo-Regular.ttf */; };
+		EC3279C325204BA4AA26F636 /* Chivo-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F02610C59CAD4EF8BE02164F /* Chivo-SemiBold.ttf */; };
+		10785414A9864CD1AE3A33D1 /* Chivo-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 510AD75668F04215A2584C2B /* Chivo-SemiBoldItalic.ttf */; };
+		5BD29CD235654DC7A005CD53 /* Chivo-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9B4E7EE7FB945B29B4248D7 /* Chivo-Thin.ttf */; };
+		15E2C7DFCBEC4B2EAB4B9C55 /* Chivo-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1CB63DBB6194C1AB5D15714 /* Chivo-ThinItalic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +66,28 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = lab3/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-lab3-lab3Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lab3-lab3Tests.release.xcconfig"; path = "Target Support Files/Pods-lab3-lab3Tests/Pods-lab3-lab3Tests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		6C7A704E921F4639B1C9150B /* Chivo-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "Chivo-Italic-VariableFont_wght.ttf"; path = "../assets/fonts/Chivo-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4431E2E8BCFF40229447C0F9 /* Chivo-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "Chivo-VariableFont_wght.ttf"; path = "../assets/fonts/Chivo-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		97682ADA933F49D1A11FF29E /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A78FE443E285437F8D08937B /* README.txt */ = {isa = PBXFileReference; name = "README.txt"; path = "../assets/fonts/README.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CEBD7391CC1E426CB62A403C /* Chivo-Black.ttf */ = {isa = PBXFileReference; name = "Chivo-Black.ttf"; path = "../assets/fonts/Chivo-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6E6A59C1A0AF4C808215A17F /* Chivo-BlackItalic.ttf */ = {isa = PBXFileReference; name = "Chivo-BlackItalic.ttf"; path = "../assets/fonts/Chivo-BlackItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		74B2DA485D8545B89E570A0C /* Chivo-Bold.ttf */ = {isa = PBXFileReference; name = "Chivo-Bold.ttf"; path = "../assets/fonts/Chivo-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BEC04967BEF04F9285230F14 /* Chivo-BoldItalic.ttf */ = {isa = PBXFileReference; name = "Chivo-BoldItalic.ttf"; path = "../assets/fonts/Chivo-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2B8EE558CF0E4EC2872D3541 /* Chivo-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Chivo-ExtraBold.ttf"; path = "../assets/fonts/Chivo-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		77C2151788774478BC2BA5E1 /* Chivo-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; name = "Chivo-ExtraBoldItalic.ttf"; path = "../assets/fonts/Chivo-ExtraBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D9CEA12A57884348826DA9BD /* Chivo-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Chivo-ExtraLight.ttf"; path = "../assets/fonts/Chivo-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4C7EB3685F544A358B31B2C3 /* Chivo-ExtraLightItalic.ttf */ = {isa = PBXFileReference; name = "Chivo-ExtraLightItalic.ttf"; path = "../assets/fonts/Chivo-ExtraLightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		67B89EC1F7B7440396789E3C /* Chivo-Italic.ttf */ = {isa = PBXFileReference; name = "Chivo-Italic.ttf"; path = "../assets/fonts/Chivo-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B0E4D7FF0AFA47EFBA4BCD96 /* Chivo-Light.ttf */ = {isa = PBXFileReference; name = "Chivo-Light.ttf"; path = "../assets/fonts/Chivo-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		84DEF3E512794015A2669A60 /* Chivo-LightItalic.ttf */ = {isa = PBXFileReference; name = "Chivo-LightItalic.ttf"; path = "../assets/fonts/Chivo-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		543047AD897C4E51A906854A /* Chivo-Medium.ttf */ = {isa = PBXFileReference; name = "Chivo-Medium.ttf"; path = "../assets/fonts/Chivo-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A2B151BE313045AFB88EF6BF /* Chivo-MediumItalic.ttf */ = {isa = PBXFileReference; name = "Chivo-MediumItalic.ttf"; path = "../assets/fonts/Chivo-MediumItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		175469B612C74171B6715418 /* Chivo-Regular.ttf */ = {isa = PBXFileReference; name = "Chivo-Regular.ttf"; path = "../assets/fonts/Chivo-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F02610C59CAD4EF8BE02164F /* Chivo-SemiBold.ttf */ = {isa = PBXFileReference; name = "Chivo-SemiBold.ttf"; path = "../assets/fonts/Chivo-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		510AD75668F04215A2584C2B /* Chivo-SemiBoldItalic.ttf */ = {isa = PBXFileReference; name = "Chivo-SemiBoldItalic.ttf"; path = "../assets/fonts/Chivo-SemiBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F9B4E7EE7FB945B29B4248D7 /* Chivo-Thin.ttf */ = {isa = PBXFileReference; name = "Chivo-Thin.ttf"; path = "../assets/fonts/Chivo-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E1CB63DBB6194C1AB5D15714 /* Chivo-ThinItalic.ttf */ = {isa = PBXFileReference; name = "Chivo-ThinItalic.ttf"; path = "../assets/fonts/Chivo-ThinItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +166,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				A03916E3857349D88123A33D /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -147,6 +192,36 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		A03916E3857349D88123A33D /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				6C7A704E921F4639B1C9150B /* Chivo-Italic-VariableFont_wght.ttf */,
+				4431E2E8BCFF40229447C0F9 /* Chivo-VariableFont_wght.ttf */,
+				97682ADA933F49D1A11FF29E /* OFL.txt */,
+				A78FE443E285437F8D08937B /* README.txt */,
+				CEBD7391CC1E426CB62A403C /* Chivo-Black.ttf */,
+				6E6A59C1A0AF4C808215A17F /* Chivo-BlackItalic.ttf */,
+				74B2DA485D8545B89E570A0C /* Chivo-Bold.ttf */,
+				BEC04967BEF04F9285230F14 /* Chivo-BoldItalic.ttf */,
+				2B8EE558CF0E4EC2872D3541 /* Chivo-ExtraBold.ttf */,
+				77C2151788774478BC2BA5E1 /* Chivo-ExtraBoldItalic.ttf */,
+				D9CEA12A57884348826DA9BD /* Chivo-ExtraLight.ttf */,
+				4C7EB3685F544A358B31B2C3 /* Chivo-ExtraLightItalic.ttf */,
+				67B89EC1F7B7440396789E3C /* Chivo-Italic.ttf */,
+				B0E4D7FF0AFA47EFBA4BCD96 /* Chivo-Light.ttf */,
+				84DEF3E512794015A2669A60 /* Chivo-LightItalic.ttf */,
+				543047AD897C4E51A906854A /* Chivo-Medium.ttf */,
+				A2B151BE313045AFB88EF6BF /* Chivo-MediumItalic.ttf */,
+				175469B612C74171B6715418 /* Chivo-Regular.ttf */,
+				F02610C59CAD4EF8BE02164F /* Chivo-SemiBold.ttf */,
+				510AD75668F04215A2584C2B /* Chivo-SemiBoldItalic.ttf */,
+				F9B4E7EE7FB945B29B4248D7 /* Chivo-Thin.ttf */,
+				E1CB63DBB6194C1AB5D15714 /* Chivo-ThinItalic.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -244,6 +319,28 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				4E5845A1CDBA4D9C9296425F /* Chivo-Italic-VariableFont_wght.ttf in Resources */,
+				1BD45D748DBD4C889D5C6E0E /* Chivo-VariableFont_wght.ttf in Resources */,
+				254FF932198D45AF99B8351F /* OFL.txt in Resources */,
+				32CFD2F176204FFA8F6234CA /* README.txt in Resources */,
+				A51E18961D10452187187720 /* Chivo-Black.ttf in Resources */,
+				67C3C4C23DE54BD79F22D155 /* Chivo-BlackItalic.ttf in Resources */,
+				00FCFA60CD364C1C9314B0B3 /* Chivo-Bold.ttf in Resources */,
+				CA2F1282016B43B0AE55B08F /* Chivo-BoldItalic.ttf in Resources */,
+				23B4B674E3DB4CEB96BCB85F /* Chivo-ExtraBold.ttf in Resources */,
+				4A1F12ABA628493C9789F18A /* Chivo-ExtraBoldItalic.ttf in Resources */,
+				D7DB53435CEF418DA5FBC872 /* Chivo-ExtraLight.ttf in Resources */,
+				B2C53B64EA50478A89FB0251 /* Chivo-ExtraLightItalic.ttf in Resources */,
+				5D7F3912669647BDB98E3FDE /* Chivo-Italic.ttf in Resources */,
+				43C1F6DA9CC14591AC341E99 /* Chivo-Light.ttf in Resources */,
+				6E171FF65D0E43EA9CDAFDDE /* Chivo-LightItalic.ttf in Resources */,
+				5BCDDA0524B1482E9F376AA3 /* Chivo-Medium.ttf in Resources */,
+				75127D8E985846E2868CE91D /* Chivo-MediumItalic.ttf in Resources */,
+				41AE92BF697A423C870F35CD /* Chivo-Regular.ttf in Resources */,
+				EC3279C325204BA4AA26F636 /* Chivo-SemiBold.ttf in Resources */,
+				10785414A9864CD1AE3A33D1 /* Chivo-SemiBoldItalic.ttf in Resources */,
+				5BD29CD235654DC7A005CD53 /* Chivo-Thin.ttf in Resources */,
+				15E2C7DFCBEC4B2EAB4B9C55 /* Chivo-ThinItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -24,8 +24,8 @@ export const stylesQuiz = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: 10,
         alignSelf: 'center',
+        margin: 80,
     },
 
     quizTestAnserwsBody: {
@@ -39,9 +39,29 @@ export const stylesQuiz = StyleSheet.create({
         alignItems: 'center',
     },
 
-    quizTextButton: {
+    quizTestTextDiv: {
+        flex: 0.2,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        fontFamily: "Chivo-Regular",
+    },
+    
+    quizTextBox: {
+        flex: 1,
+        padding: 10,
+        fontFamily: "Chivo-Regular",
+    },
+
+    quizHeaderTextBox: {
+        flex: 1,
+        marginTop: 20,
+        fontFamily: "Chivo-Regular",
+    },
+
+    quizTextHoveredButton: {
         fontSize: 16,
-        fontWeight: 'bold',
         alignSelf: 'center',
         textAlign: 'center',
         borderRadius: 50,
@@ -49,15 +69,19 @@ export const stylesQuiz = StyleSheet.create({
         backgroundColor: '#54BF72',
         padding: 20,
         margin: 10,
+        fontFamily: "Chivo-Bold",
     },
 
-    quizHeader: {
-        fontSize: 24,
-        fontWeight: 'bold',
+    quizTextButton: {
+        fontSize: 16,
         alignSelf: 'center',
         textAlign: 'center',
-        margin: 10,
+        borderRadius: 50,
         color: 'black',
+        backgroundColor: '#EDEDED',
+        padding: 20,
+        margin: 10,
+        fontFamily: "Chivo-Bold",
     },
 
     quizText: {
@@ -66,11 +90,12 @@ export const stylesQuiz = StyleSheet.create({
         textAlign: 'center',
         margin: 10,
         color: 'black',
+        fontFamily: "Chivo-Regular",
     },
 
 
     quizTestHeaderBox: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         backgroundColor: 'white',
         borderRadius: 15,
         shadowColor: 'black',
@@ -79,6 +104,8 @@ export const stylesQuiz = StyleSheet.create({
         shadowRadius: 10,
         elevation: 5,
         justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
 
         marginTop: 20,
         marginLeft: 20,
@@ -87,52 +114,48 @@ export const stylesQuiz = StyleSheet.create({
 
     quizTestHeaderItems: {
         flexDirection: 'row',
-        alignItems: 'center',
     },
 
     quizTestHeaderText: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        borderRadius: 50,
+        fontSize: 24,
         color: 'black',
-        paddingLeft: 20,
-        paddingRight: 20,
-        margin: 10,
-        
+        fontFamily: "Chivo-Bold",
+
     },
 
     quizTestHeaderResignButton: {
         borderRadius: 15,
         backgroundColor: '#BF5454',
-        margin: 10,
+        marginLeft: 20,
+        marginRight: 20,
     },
 
     quizTestHeaderResignText: {
         fontSize: 16,
-        fontWeight: 'bold',
         borderRadius: 50,
         color: 'black',
         paddingLeft: 20,
         paddingRight: 20,
         margin: 10,
+        fontFamily: "Chivo-Bold",
         
     },
 
     quizTestHeaderScoreCount: {
         borderRadius: 15,
         backgroundColor: '#54BF72',
-        margin: 10,
+        marginLeft: 20,
+        marginRight: 20,
     },
 
     quizTestHeaderScoreText: {
         fontSize: 16,
-        fontWeight: 'bold',
-
         borderRadius: 50,
         color: 'white',
         paddingLeft: 20,
         paddingRight: 20,
         margin: 10,
+        fontFamily: "Chivo-Bold",
         
     },
 
@@ -140,4 +163,12 @@ export const stylesQuiz = StyleSheet.create({
         position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'
     },
 
+
+    quizQuestionText: {
+        fontSize: 16,
+        color: 'black',
+        alignSelf: 'center',
+        textAlign: 'center',
+        fontFamily: "Chivo-Regular",
+    },
 });

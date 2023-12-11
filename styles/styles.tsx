@@ -13,27 +13,33 @@ export const styles = StyleSheet.create({
 
     header: {
         fontSize: 24,
-        fontWeight: 'bold',
         color: 'black',
+        fontFamily: "Chivo-Bold",
+    },
+
+    quizHeader: {
+        fontSize: 18,
+        color: 'black',
+        fontFamily: "Chivo-Bold",
     },
 
     difficulty: {
         fontSize: 16,
-        fontWeight: 'bold',
         color: 'green',
-        fontStyle: 'italic',
+        fontFamily: "Chivo-Italic",
     },
     
     text: {
         fontSize: 16,
         marginTop: 10,
+        fontFamily: "Chivo-Regular",
         
     },
 
     menuText: {
         fontSize: 16,
-        fontWeight: 'bold',
         color: 'white',
+        fontFamily: "Chivo-Bold",
     },
 
     listQuiz: {
@@ -61,34 +67,37 @@ export const styles = StyleSheet.create({
 
     quizBoxHeaderText: {
         fontSize: 24,
-        fontWeight: 'bold',
         color: 'black',
         alignSelf: 'center',
         textAlign: 'center',
+        fontFamily: "Chivo-Bold",
     },
 
     rightQuizButtons: {
-        flex: 1,
+        flex: 0.8,
         flexDirection: 'row',
         justifyContent: 'flex-end',
+        alignSelf: 'flex-start',
     },
 
     quizScoreMax: {
         fontSize: 12,
-        fontWeight: 'bold',
         color: 'white',
         backgroundColor: '#54BF72',
         padding: 15,
         borderRadius: 15,
+        marginRight: 10,
+        fontFamily: "Chivo-Bold",
     },
 
     quizScore: {
         fontSize: 12,
-        fontWeight: 'bold',
         color: 'black',
         backgroundColor: '#EDEDED',
         padding: 15,
         borderRadius: 15,
+        marginRight: 10,
+        fontFamily: "Chivo-Bold",
     },
 
     quizBox: {
@@ -119,14 +128,15 @@ export const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
+        fontFamily: "Chivo-Regular",
     },
 
     footer: {
         fontSize: 16,
-        fontWeight: 'bold',
         color: 'black',
         alignSelf: 'center',
         textAlign: 'center',
+        fontFamily: "Chivo-Bold",
     },
 
     footerButtons: {
@@ -134,26 +144,26 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
         marginTop: 20,
-        //marginLeft: 80,
-        //marginRight: 80,
+        marginLeft: 80,
+        marginRight: 80,
     },
 
     footerButton: {
         fontSize: 12,
-        fontWeight: 'bold',
         color: 'white',
         backgroundColor: '#54BF72',
         padding: 10,
         borderRadius: 15,
+        fontFamily: "Chivo-Bold",
     },
 
     enterButton: {
         fontSize: 12,
-        fontWeight: 'bold',
         color: 'white',
         backgroundColor: '#54BF72',
         padding: 15,
         borderRadius: 15,
+        fontFamily: "Chivo-Bold",
     },
 
     menuBar: {
