@@ -7,8 +7,10 @@ import {
     TouchableOpacity,
     useWindowDimensions,
     Image,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    Alert
 } from 'react-native';
+import NetInfo from "@react-native-community/netinfo";
 import { ScrollView } from 'react-native';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -52,7 +54,26 @@ function Home(this: any): JSX.Element {
     const scrollViewRef = useRef<ScrollView>(null);
     const { scores } = React.useContext(ScoreContext);
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
+
+    // Function to fetch quizzes
+    const fetchQuizzes = () => {
+        NetInfo.fetch().then(state => {
+            if (!state.isConnected) {
+                Alert.alert('No Internet Connection', 'Please check your internet connection and try again.');
+            } else {
+                fetch('http://tgryl.pl/quiz/tests')
+                    .then(response => response.json())
+                    .then(data => setQuizzes(data))
+                    .catch(error => console.error(error));
+            }
+        });
+    };
     
+
+    useEffect(() => {
+        fetchQuizzes(); // Fetch quizzes on component mount
+    }, []);
+        
 
     useEffect(() => {
         fetch('http://tgryl.pl/quiz/tests')
@@ -118,7 +139,19 @@ function Home(this: any): JSX.Element {
                 <View style={styles.listQuiz}>
                     <ScrollView ref={scrollViewRef}>  
                         <View style={styles.quizBoxHeader}>
-                            <Text style={styles.quizBoxHeaderText}>Trending Quizzes</Text>
+                            <Text style={styles.quizBoxHeaderText}>Popularne Quizy</Text>
+                            <View style={styles.headerButtons}>
+                                <TouchableOpacity onPress={() => {
+                                    const randomQuizIndex = Math.floor(Math.random() * quizzes.length);
+                                    const selectedQuiz = quizzes[randomQuizIndex];
+                                    navigation.navigate('Quiz', { id: selectedQuiz.id });
+                                }}>
+                                    <Text style={styles.footerButton}>Szczęśliwy traf</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={fetchQuizzes}>
+                                    <Text style={styles.footerButton}>Odśwież Quizy</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
 
                         {quizzes.map((quiz, index) => (
@@ -126,7 +159,7 @@ function Home(this: any): JSX.Element {
                                 <View style={styles.title}>
                                     <View style={styles.titleText}>
                                         <Text style={styles.quizHeader}>{quiz.name}</Text>
-                                        <Text style={styles.difficulty}>Level: {quiz.level}</Text>
+                                        <Text style={styles.difficulty}>Poziom: {quiz.level}</Text>
                                     </View>
 
                                     <View style={styles.rightQuizButtons}>
@@ -134,7 +167,7 @@ function Home(this: any): JSX.Element {
                                             {(scores[quiz.id] || 0)}/{quiz.numberOfTasks}
                                         </Text>
                                         <TouchableOpacity>
-                                            <Text style={styles.enterButton} onPress={() => navigation.navigate('Quiz', { id: quiz.id })}>BEGIN</Text>
+                                            <Text style={styles.enterButton} onPress={() => navigation.navigate('Quiz', { id: quiz.id })}>Start</Text>
                                         </TouchableOpacity>     
                                     </View>
                                 </View>
@@ -144,14 +177,14 @@ function Home(this: any): JSX.Element {
 
                         {/*Footer*/}
                         <View style={styles.quizBox}>
-                            <Text style={styles.footer}>Couldn't find any quiz to partake?</Text>
-                            <Text style={styles.footer}>Check your current results!</Text>
+                            <Text style={styles.footer}>Nie znalazłeś odpowiedniego quizu?</Text>
+                            <Text style={styles.footer}>Sprawdz swoje wyniki!</Text>
                             <View style={styles.footerButtons}>
                                 <TouchableOpacity onPress={() => scrollViewRef.current?.scrollTo({ y: 0, animated: false })}>
-                                    <Text style={styles.footerButton}>RETURN</Text>
+                                    <Text style={styles.footerButton}>Powrót</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() => navigation.navigate('Results')}>
-                                    <Text style={styles.footerButton}>RESULTS</Text>
+                                    <Text style={styles.footerButton}>Wyniki</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>

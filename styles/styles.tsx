@@ -17,6 +17,14 @@ export const styles = StyleSheet.create({
         fontFamily: "Chivo-Bold",
     },
 
+    headerButtons: {
+        flex: 1,
+        flexDirection: 'row',
+        marginTop: 20,
+        marginBottom: 10,
+        justifyContent: 'space-evenly',
+    },
+
     quizHeader: {
         fontSize: 18,
         color: 'black',
@@ -81,23 +89,27 @@ export const styles = StyleSheet.create({
     },
 
     quizScoreMax: {
-        fontSize: 12,
+        fontSize: 16,
         color: 'white',
         backgroundColor: '#54BF72',
         padding: 15,
         borderRadius: 15,
         marginRight: 10,
         fontFamily: "Chivo-Bold",
+        alignContent: 'center',
+        justifyContent: 'center',
     },
 
     quizScore: {
-        fontSize: 12,
+        fontSize: 16,
         color: 'black',
         backgroundColor: '#EDEDED',
         padding: 15,
         borderRadius: 15,
         marginRight: 10,
         fontFamily: "Chivo-Bold",
+        alignContent: 'center',
+        justifyContent: 'center',
     },
 
     quizBox: {
@@ -124,7 +136,7 @@ export const styles = StyleSheet.create({
     },
 
     titleText: {
-        flex: 1,
+        flex: 0.9,
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
@@ -144,12 +156,13 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
         marginTop: 20,
-        marginLeft: 80,
-        marginRight: 80,
+        marginBottom: 0,
+        marginLeft: 60,
+        marginRight: 60,
     },
 
     footerButton: {
-        fontSize: 12,
+        fontSize: 16,
         color: 'white',
         backgroundColor: '#54BF72',
         padding: 10,
@@ -158,7 +171,7 @@ export const styles = StyleSheet.create({
     },
 
     enterButton: {
-        fontSize: 12,
+        fontSize: 16,
         color: 'white',
         backgroundColor: '#54BF72',
         padding: 15,

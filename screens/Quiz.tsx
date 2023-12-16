@@ -86,6 +86,10 @@ const QuizView: React.FC = () => {
                     console.error('Invalid data:', data);
                     return;
                 }
+                // Shuffle the answers for each question
+                data.tasks.forEach((task: Task) => {
+                    task.answers = shuffleArray(task.answers);
+                });
                 setQuizData(data);
                 setCurrentQuestion(data.tasks[0]);
                 setIsLoading(false);
@@ -187,6 +191,25 @@ const QuizView: React.FC = () => {
         setCurrentQuestionIndex(prevIndex => prevIndex + 1);
         setSelectedAnswer(null);
     };
+
+    function shuffleArray(array: any[]) {
+        let currentIndex = array.length, temporaryValue, randomIndex;
+    
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+    
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+    
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+    
+        return array;
+    }
     
     if (!currentQuestion) {
         return null;
@@ -247,21 +270,22 @@ const QuizView: React.FC = () => {
 
                         <View style={stylesQuiz.quizTestAnserwsBody}>
                             <View style={stylesQuiz.quizTestAnserwsRow}>
-                                {currentQuestion.answers?.slice(0, 2).map((answer, index) => (
+                                {currentQuestion.answers?.map((answer, index) => (
                                     <TouchableOpacity key={index} onPress={() => handleAnswerClick(index)} style={{ flex: 1 }}>
                                         <Text style={stylesQuiz.quizText}>{answer.content}</Text>
                                     </TouchableOpacity>
-                                ))}
+                                )).slice(0, 2)}
                             </View>
 
                             <View style={stylesQuiz.quizTestAnserwsRow}>
-                                {currentQuestion.answers?.slice(2, 4).map((answer, index) => (
-                                    <TouchableOpacity key={index + 2} onPress={() => handleAnswerClick(index + 2) } style={{ flex: 1 }}>
+                                {currentQuestion.answers?.map((answer, index) => (
+                                    <TouchableOpacity key={index + 2} onPress={() => handleAnswerClick(index + 2)} style={{ flex: 1 }}>
                                         <Text style={stylesQuiz.quizText}>{answer.content}</Text>
                                     </TouchableOpacity>
-                                ))}
+                                )).slice(2, 4)}
                             </View>
                         </View>
+                        
                     </View>
                 </ScrollView>
             </View>
