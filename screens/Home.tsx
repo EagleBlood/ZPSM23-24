@@ -1,3 +1,5 @@
+/* Naprawić QuizDetails bo jest 15 tych samych rekordów, naprawić pobieranie w Quiz pytań*/
+
 import React, {useState, useEffect, Component, useRef} from 'react';
 import {
     SafeAreaView,
@@ -16,6 +18,7 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { styles } from '../styles/styles';
 import ScoreContext from '../data/ScoreContext';
+import SQLite from 'react-native-sqlite-2'
 
 
 
@@ -26,6 +29,7 @@ function Home(this: any): JSX.Element {
         level: string;
         numberOfTasks: number;
         description: string;
+        tags: string[];
         // add other properties as needed
     }
 
@@ -55,17 +59,161 @@ function Home(this: any): JSX.Element {
     const { scores } = React.useContext(ScoreContext);
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
 
-    // Function to fetch quizzes
     const fetchQuizzes = () => {
         NetInfo.fetch().then(state => {
             if (!state.isConnected) {
-                Alert.alert('No Internet Connection', 'Please check your internet connection and try again.');
+                Alert.alert('Brak internetu!', 'Prosze sprawdz swoje połączenie i spróbuj ponownie.');
             } else {
                 fetch('http://tgryl.pl/quiz/tests')
                     .then(response => response.json())
-                    .then(data => setQuizzes(data))
+                    .then(data => {
+                        console.log(data);
+                        const db = SQLite.openDatabase('test.db', '1.0', '', 1);
+                        db.transaction(function(txn) {
+                            txn.executeSql(
+                                'CREATE TABLE IF NOT EXISTS Quizzes(id TEXT PRIMARY KEY NOT NULL, name TEXT, level TEXT, numberOfTasks INTEGER, description TEXT, tags TEXT);',
+                                []
+                            );
+    
+                            txn.executeSql(
+                                'CREATE TABLE IF NOT EXISTS QuizDetails(quizId TEXT, question TEXT, answers TEXT, duration INTEGER);',
+                                []
+                            );
+    
+                            txn.executeSql(
+                                'SELECT * FROM Quizzes;',
+                                [],
+                                (tx, resultSet) => {
+                                    if (JSON.stringify(resultSet.rows) !== JSON.stringify(data)) {
+                                        txn.executeSql(
+                                            'DELETE FROM Quizzes;',
+                                            [],
+                                            (tx, resultSet) => {
+                                                console.log('Deleted old data from Quizzes');
+                                            },
+                                            (tx, error) => {
+                                                console.log('Deletion error: ', error);
+                                                return true;
+                                            }
+                                        );
+    
+                                        txn.executeSql(
+                                            'DELETE FROM QuizDetails;',
+                                            [],
+                                            (tx, resultSet) => {
+                                                console.log('Deleted old data from QuizDetails');
+                                            },
+                                            (tx, error) => {
+                                                console.log('Deletion error: ', error);
+                                                return true;
+                                            }
+                                        );
+    
+                                        data.forEach((quiz: Quiz) => {
+                                            const tagsString = JSON.stringify(quiz.tags);
+                                            console.log('Inserting quiz: ', quiz);
+    
+                                            txn.executeSql(
+                                                'INSERT INTO Quizzes (id, name, level, numberOfTasks, description, tags) VALUES (?, ?, ?, ?, ?, ?)',
+                                                [quiz.id, quiz.name, quiz.level, quiz.numberOfTasks, quiz.description, tagsString],
+                                                (tx, resultSet) => {
+                                                    console.log('Insertion result: ', resultSet);
+                                                },
+                                                (tx, error) => {
+                                                    console.log('Insertion error: ', error);
+                                                    return true;
+                                                }
+                                            );
+    
+                                            fetch(`http://tgryl.pl/quiz/test/${quiz.id}`)
+                                                .then(response => response.json())
+                                                .then(quizDetail => {
+                                                    db.transaction(function(innerTxn) {
+                                                        quizDetail.tasks.forEach((task: any) => {
+                                                            const answersString = JSON.stringify(task.answers);
+                                                            console.log('Inserting quiz detail: ', task);
+    
+                                                            innerTxn.executeSql(
+                                                                'INSERT INTO QuizDetails (quizId, question, answers, duration) VALUES (?, ?, ?, ?)',
+                                                                [quiz.id, task.question, answersString, task.duration],
+                                                                (tx, resultSet) => {
+                                                                    console.log('Insertion result: ', resultSet);
+                                                                },
+                                                                (tx, error) => {
+                                                                    console.log('Insertion error: ', error);
+                                                                    return true;
+                                                                }
+                                                            );
+                                                        });
+                                                    });
+                                                })
+                                                .catch(error => console.error(error));
+                                        });
+                                    }
+                                },
+                                (tx, error) => {
+                                    console.log('Selection error: ', error);
+                                    return true;
+                                }
+                            );
+                        });
+                    })
                     .catch(error => console.error(error));
             }
+        });
+    };
+
+    
+
+
+    const createQuizDetailsTable = () => {
+        const db = SQLite.openDatabase('test.db', '1.0', '', 1);
+        db.transaction(function(txn) {
+            txn.executeSql(
+                'CREATE TABLE IF NOT EXISTS QuizDetails(quizId TEXT, question TEXT, answers TEXT, duration INTEGER);',
+                []
+            );
+        });
+    };
+    
+    // Call this function when your app starts or in an appropriate initialization section.
+    createQuizDetailsTable();
+
+    const logQuizzes = () => {
+        const db = SQLite.openDatabase('test.db', '1.0', '', 1);
+        db.transaction(txn => {
+            txn.executeSql('SELECT * FROM Quizzes', [], (tx, res) => {
+                const quizzes: Quiz[] = [];
+                for (let i = 0; i < res.rows.length; ++i) {
+                    const item = res.rows.item(i);
+                    const parsedTags = JSON.parse(item.tags || '[]'); // Parse the tags string back to an array
+                    const quizWithTags = { ...item, tags: parsedTags }; // Replace the tags string with parsed array
+                    quizzes.push(quizWithTags);
+                }
+                // Log the quizzes
+                console.log(quizzes);
+            });
+        });
+    };
+
+    const logQuizDetails = () => {
+        // Open the SQLite database
+        const db = SQLite.openDatabase('test.db', '1.0', '', 1);
+        db.transaction(function(txn) {
+            // Select all details for the specified quiz from the QuizDetails table
+            txn.executeSql('SELECT * FROM QuizDetails', [], function(tx, res) {
+                const quizDetails: any[] = [];
+                for (let i = 0; i < res.rows.length; ++i) {
+                    quizDetails.push(res.rows.item(i));
+                }
+                // Log the quiz details
+                console.log(quizDetails);
+            }, function(tx, error) {
+                // Log the error
+                console.log('Error executing SQL: ', error);
+                // Return false to roll back the transaction
+                return false;
+            });
         });
     };
     
@@ -180,7 +328,11 @@ function Home(this: any): JSX.Element {
                             <Text style={styles.footer}>Nie znalazłeś odpowiedniego quizu?</Text>
                             <Text style={styles.footer}>Sprawdz swoje wyniki!</Text>
                             <View style={styles.footerButtons}>
-                                <TouchableOpacity onPress={() => scrollViewRef.current?.scrollTo({ y: 0, animated: false })}>
+                                <TouchableOpacity onPress={() => {
+                                    scrollViewRef.current?.scrollTo({ y: 0, animated: false });
+                                    logQuizzes();
+                                    //logQuizDetails();
+                                }}>
                                     <Text style={styles.footerButton}>Powrót</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() => navigation.navigate('Results')}>

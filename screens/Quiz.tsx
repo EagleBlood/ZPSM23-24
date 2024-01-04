@@ -14,6 +14,7 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import ScoreContext from '../data/ScoreContext';
 import { ScrollView } from 'react-native';
+import SQLite from 'react-native-sqlite-2'
 
 type RootStackParamList = {
     Home: undefined;
@@ -77,7 +78,7 @@ const QuizView: React.FC = () => {
     }, [currentQuestionIndex]);
 
 
-    useEffect(() => {
+    /*useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await fetch(`https://tgryl.pl/quiz/test/${quizId}`);
@@ -98,7 +99,81 @@ const QuizView: React.FC = () => {
             }
         };
         fetchData();
+    }, [quizId]);*/
+
+    useEffect(() => {
+        const fetchData = async () => {
+            console.log('Fetching all records from the database...');
+            const db = SQLite.openDatabase('test.db', '1.0', '', 1);
+            console.log('Database opened');
+    
+            // Fetch all records from the Quizzes table
+            db.transaction(txn => {
+                txn.executeSql('SELECT * FROM Quizzes', [], (tx, res) => {
+                    console.log('All records fetched from the Quizzes table:', res);
+                });
+            });
+    
+            console.log('Fetching data for quiz with ID:', quizId);
+    
+            return new Promise<Quiz>((resolve, reject) => {
+                db.transaction(txn => {
+                    console.log('Starting transaction...');
+                    txn.executeSql('SELECT * FROM Quizzes WHERE id = ?', [quizId], (tx, res) => {
+                        console.log('Query executed');
+                        console.log('Result:', res);
+                        if (res.rows.length > 0) {
+                            const quiz: Quiz = res.rows.item(0);
+                            console.log('Retrieved quiz:', quiz);
+    
+                            // Fetch tasks for the quiz
+                            txn.executeSql(
+                                'SELECT * FROM QuizDetails WHERE quizId = ?',
+                                [quiz.id],
+                                (_, taskResult) => {
+                                    const tasks = [];
+                                    for (let i = 0; i < taskResult.rows.length; i++) {
+                                        const task = taskResult.rows.item(i);
+                                        task.answers = JSON.parse(task.answers); // Parse answers from JSON string to array
+                                        tasks.push(task);
+                                    }
+    
+                                    // Now tasks is an array of task objects
+                                    console.log('Tasks:', tasks);
+    
+                                    // Process tasks...
+                                    tasks.forEach((task: Task) => {
+                                        // rest of the code...
+                                    });
+    
+                                    quiz.tasks = tasks; // Assign tasks to quiz
+                                    console.log('Quiz data:', quiz);
+                                    resolve(quiz);
+                                }
+                            );
+                        } else {
+                            console.error('No quiz found with id:', quizId);
+                            reject('No quiz found');
+                        }
+                    }, (tx, error) => {
+                        console.error('Error executing SQL: ', error);
+                        reject(error);
+                        return false;
+                    });
+                });
+            }).then((quiz) => {
+                setQuizData(quiz);
+                setCurrentQuestion(quiz.tasks[0]);
+                setIsLoading(false); // Set isLoading to false after successfully fetching data
+            }).catch((error) => {
+                console.error('Error fetching data:', error);
+                setIsLoading(false); // Set isLoading to false even if there was an error
+            });
+        };
+    
+        fetchData();
     }, [quizId]);
+    
 
     useEffect(() => {
         if (!currentQuiz || !currentQuiz.tasks || currentQuestionIndex < currentQuiz.tasks.length) {
@@ -115,25 +190,38 @@ const QuizView: React.FC = () => {
     
     useEffect(() => {
         const sendQuizResults = async () => {
+            if (!currentQuiz) {
+                console.log('currentQuiz is not defined yet.');
+                return;
+            }
+    
+            console.log('currentQuiz:', currentQuiz);
+            console.log('currentQuiz.tags:', currentQuiz.tags);
+    
             Alert.alert(
                 "Quiz Completed",
-                `You scored ${currentScore} out of ${currentQuiz?.tasks.length}`,
+                `You scored ${currentScore} out of ${currentQuiz.tasks.length}`,
                 [
                     { text: "OK", onPress: () => console.log("OK Pressed") }
                 ]
             );
+    
+            const quizResults = {
+                nick: 'uuuuuuu',
+                score: currentScore,
+                total: currentQuiz.tasks.length,
+                type: currentQuiz.name,
+            };
+    
+            console.log('Sending quiz results:', quizResults);
+    
             try {
                 const response = await fetch('https://tgryl.pl/quiz/result', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({
-                        nick: 'uuuuuuu',
-                        score: currentScore,
-                        total: currentQuiz?.tasks.length,
-                        type: currentQuiz?.tags[0],
-                    }),
+                    body: JSON.stringify(quizResults),
                 });
     
                 if (response.ok) {
@@ -152,7 +240,9 @@ const QuizView: React.FC = () => {
             setCurrentScore(0);
             setCurrentQuestionIndex(0);
         }
-    }, [quizCompleted, currentScore]);
+    }, [quizCompleted, currentScore, currentQuiz]); 
+    
+
 
     if (isLoading || !currentQuestion) {
         return <Text>Loading...</Text>;
@@ -184,8 +274,13 @@ const QuizView: React.FC = () => {
         if (!currentQuestion || !currentQuiz || !currentQuiz.tasks) {
             return;
         }
+        const answer = currentQuestion.answers[answerIndex];
+        if (!answer) {
+            console.error('Invalid answer index:', answerIndex);
+            return;
+        }
         setSelectedAnswer(answerIndex);
-        if (currentQuestion.answers[answerIndex].isCorrect) {
+        if (answer.isCorrect) {
             setCurrentScore(currentScore + 1);
         }
         setCurrentQuestionIndex(prevIndex => prevIndex + 1);
@@ -270,19 +365,19 @@ const QuizView: React.FC = () => {
 
                         <View style={stylesQuiz.quizTestAnserwsBody}>
                             <View style={stylesQuiz.quizTestAnserwsRow}>
-                                {currentQuestion.answers?.map((answer, index) => (
+                                {currentQuestion.answers?.slice(0, 2).map((answer, index) => (
                                     <TouchableOpacity key={index} onPress={() => handleAnswerClick(index)} style={{ flex: 1 }}>
                                         <Text style={stylesQuiz.quizText}>{answer.content}</Text>
                                     </TouchableOpacity>
-                                )).slice(0, 2)}
+                                ))}
                             </View>
 
                             <View style={stylesQuiz.quizTestAnserwsRow}>
-                                {currentQuestion.answers?.map((answer, index) => (
+                                {currentQuestion.answers?.slice(2, 4).map((answer, index) => (
                                     <TouchableOpacity key={index + 2} onPress={() => handleAnswerClick(index + 2)} style={{ flex: 1 }}>
                                         <Text style={stylesQuiz.quizText}>{answer.content}</Text>
                                     </TouchableOpacity>
-                                )).slice(2, 4)}
+                                ))}
                             </View>
                         </View>
                         
