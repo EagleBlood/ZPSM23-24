@@ -1,20 +1,9 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Navigator from './routes/homeStack';
-import ScoreContext from './data/ScoreContext';
-import InternetConnectionCheck from './checks/InternetConnectionCheck';
+import Home from './screens/Home';
 
 export default function App() {
-  const [scores, setScores] = useState<number[]>([]);
-
   return (
-    <InternetConnectionCheck>
-      <ScoreContext.Provider value={{ scores, setScores }}>
-        <NavigationContainer>
-          <Navigator />
-        </NavigationContainer>
-      </ScoreContext.Provider>
-    </InternetConnectionCheck>
+    <NavigationContainer><Home/></NavigationContainer>
   );
-};
+}
