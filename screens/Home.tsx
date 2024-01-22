@@ -8,79 +8,80 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-import {PanGestureHandler} from 'react-native-gesture-handler';
 import Animated, {useSharedValue, useAnimatedStyle, withSpring, useAnimatedGestureHandler} from 'react-native-reanimated';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {stylesHome} from '../styles/stylesHome';
-import MyTab from '../components/BottomBar'
+import { StackNavigationProp } from '@react-navigation/stack';
+import {stylesDevice} from '../styles/stylesDevice';
+import { BleManager, Device } from 'react-native-ble-plx';
+import { Buffer } from 'buffer';
 
-function Home(): React
-    .JSX
-    .Element {
+type HomeScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Home'
+>;
+
+type Props = {
+  navigation: HomeScreenNavigationProp;
+};
+
+type RootStackParamList = {
+    Home: undefined;
+    Devices: undefined;
+  };
+
+  function Home({ navigation}: Props): React.JSX.Element {
 
         const menuOffset = useSharedValue(0);
         const [name, setName] = useState('');
         const [place, setPlace] = useState('');
         const [command, setCommand] = useState('');
 
-        const animatedStyle = useAnimatedStyle(() => {
-            return {
-                transform: [
-                    {
-                        translateY: menuOffset.value
-                    }
-                ]
-            };
-        });
-
-        const textAnimatedStyle = useAnimatedStyle(() => {
-            return {
-                opacity: menuOffset.value >= 100
-                    ? 1
-                    : 0
-            };
-        });
-
-        const gestureHandler = useAnimatedGestureHandler({
-            onStart: (_, ctx) => {
-                ctx.startY = menuOffset.value;
-            },
-            onActive: (event, ctx : any) => {
-                menuOffset.value = ctx.startY + event.translationY;
-            },
-            onEnd: (_) => {
-                if (menuOffset.value >= 100) {
-                    menuOffset.value = withSpring(100);
-                } else {
-                    menuOffset.value = withSpring(0);
-                }
-            }
-        });
-
         const [modalVisible, setModalVisible] = useState(false);
 
-        const [items, setItems] = useState < {
-            name: string;
-            desc: string
-        }[] > ([
-            {
-                name: 'Item 1',
-                desc: 'desc'
-            }, {
-                name: 'Item 2',
-                desc: 'desc'
-            }
-        ]);
+        const [items, setItems] = useState<{ name: string; desc: string }[]>([]);
 
         const addItem = (name : string, place : string, command : string) => {
             setItems([
-                ...items, {
-                    name,
-                    desc: command
-                }
+              ...items, {
+                name,
+                desc: command
+              }
             ]);
             setModalVisible(false);
-        };
+        
+            sendCommand('00:13:AA:00:B4:62', 'FFE0', 'FFE1', command);
+          };
+
+        const manager = new BleManager();
+
+        const sendCommand = async (deviceId: string, serviceUUID: string, characteristicUUID: string, command: string) => {
+            try {
+              // Connect to the device
+              const device = await manager.connectToDevice(deviceId);
+              console.log('Connected to device', device.id);
+          
+              // Discover all services and characteristics
+              await manager.discoverAllServicesAndCharacteristicsForDevice(deviceId);
+              console.log('Discovered all services and characteristics');
+          
+              const base64Command = Buffer.from(command).toString('base64');
+              await manager.writeCharacteristicWithResponseForDevice(
+                deviceId,
+                serviceUUID,
+                characteristicUUID,
+                base64Command
+              );
+              console.log('Command sent');
+          
+              // Disconnect from the device
+              await manager.cancelDeviceConnection(deviceId);
+              console.log('Disconnected from device', deviceId);
+            } catch (error) {
+              console.log('Failed to send command', error);
+            }
+          };
+
 
         return (
             <GestureHandlerRootView style={{
@@ -127,43 +128,15 @@ function Home(): React
                         </View>
                     </Modal>
 
-                    <PanGestureHandler onGestureEvent={gestureHandler}>
-                        <Animated.View style={[stylesHome.menuBar, animatedStyle]}>
-                            <Animated.View
-                                style={[
-                                    stylesHome.menuHiddenItems, {
-                                        top: menuOffset.value >= 100
-                                            ? 0
-                                            : -100,
-                                        bottom: menuOffset.value >= 100
-                                            ? 0
-                                            : '100%'
-                                    }
-                                ]}>
-                                <View style={stylesHome.menuSelect}>
-                                    <Text style={stylesHome.menuText}>Device:</Text>
-                                    <Text style={stylesHome.menuDeviceText}>/name/</Text>
-                                </View>
-                                <View style={stylesHome.menuSelect}>
-                                    <TouchableOpacity>
-                                        <Text style={stylesHome.menuText}>Connect to new device</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </Animated.View>
-
-                            <View style={stylesHome.menuSelect}>
-
-                                <Text style={stylesHome.menuText}>Commands</Text>
-
-                            </View>
-                        </Animated.View>
-                    </PanGestureHandler>
-
                     <View style={{
                             flex: 1
                         }}>
                         <ScrollView>
                             <View style={stylesHome.itemsContainer}>
+                                <View style={stylesDevice.row}>
+                                    <Text style={stylesHome.menuText}>Commands</Text>
+                                </View>
+                                
                                 <View style={stylesHome.itemsGrid}>
                                     {
                                         [
@@ -184,16 +157,20 @@ function Home(): React
                                                 <View key={index} style={stylesHome.items}>
                                                     {
                                                         pair.map((item, index) => (
-                                                          <TouchableOpacity
-                                                              key={index}
-                                                              style={stylesHome.item}
-                                                              onPress={() => item.name === '+'
-                                                                  ? setModalVisible(true)
-                                                                  : null}>
-                                                              <Text style={stylesHome.itemName}>{item.name}</Text>
-                                                              {item.name === '+' ? <View /> : <Text style={stylesHome.itemDesc}>{item.desc}</Text>}
-                                                          </TouchableOpacity>
-                                                      ))
+                                                            <TouchableOpacity
+                                                            key={index}
+                                                            style={stylesHome.item}
+                                                            onPress={() => {
+                                                                if (item.name === '+') {
+                                                                setModalVisible(true);
+                                                                } else {
+                                                                sendCommand('00:13:AA:00:B4:62', 'FFE0', 'FFE1', item.desc);
+                                                                }
+                                                            }}>
+                                                            <Text style={stylesHome.itemName}>{item.name}</Text>
+                                                            {item.name === '+' ? <View /> : <Text style={stylesHome.itemDesc}>{item.desc}</Text>}
+                                                            </TouchableOpacity>
+                                                        ))
                                                     }
                                                 </View>
                                             ))
